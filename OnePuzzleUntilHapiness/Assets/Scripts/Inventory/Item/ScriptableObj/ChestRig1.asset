@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f60aa31c47bdb74aa56761c3d3107dc, type: 3}
+  m_Name: ChestRig1
+  m_EditorClassIdentifier: 
+  itemName: Chest rig lv1
+  description: A kvlar armour protect from small calibers
+  icon: {fileID: 21300000, guid: 82a8be3eaff4b1441bf92fc7c4aab3a2, type: 3}
+  type: 4
+  mod_armor: 2
+  mesh: {fileID: 841958572088712021, guid: 53561e2dc0027cd4e9d6305ff2d104d7, type: 3}
+  coveredByMesh: 

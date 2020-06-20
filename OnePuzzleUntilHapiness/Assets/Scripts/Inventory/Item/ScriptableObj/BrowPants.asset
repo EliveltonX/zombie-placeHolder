@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4f60aa31c47bdb74aa56761c3d3107dc, type: 3}
+  m_Name: BrowPants
+  m_EditorClassIdentifier: 
+  itemName: BrowPants
+  description: Good color for apocalypse :)
+  icon: {fileID: 21300000, guid: 809de16861074534e969c636b75a2b85, type: 3}
+  type: 1
+  mod_armor: 2
+  mesh: {fileID: 5644314192815225485, guid: e1338ab8616153e4db58230092f4ebc1, type: 3}
+  coveredByMesh: 
