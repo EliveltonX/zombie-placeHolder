@@ -24,8 +24,11 @@ Feet,Pants,Shirt,
     //Armour
 Helmet,Chest,Gloves,
     //Weapons
-Melee,Gun,Trowable,
+Prymary,Secondary,
     //Other
 BackPack
 };
+
+
+
 public enum EquipmentMeshRegion {Legs,Chest }; // corresponds to blendShapes;

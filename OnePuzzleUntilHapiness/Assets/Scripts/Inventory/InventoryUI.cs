@@ -7,13 +7,19 @@ public class InventoryUI : MonoBehaviour
    
 
     public Transform ItemsParent;
-    public GameObject inventoryScreen;
+    public Transform equipmentSlotParent;
+    public GameObject inventoryScreen,playerStatsScreen;
+
+    private EquipmentManager equipManager;
 
     private InventorySlot[] slots;
+    private EquipmentSlotUI[] equipSlots;
 
 
     private void Start()
     {
+        equipManager = EquipmentManager.instance;
+
         inventory = Inventory.instance;
         inventory.OnItemChangeCallback += UpdateUI;
         
@@ -22,7 +28,8 @@ public class InventoryUI : MonoBehaviour
     public void inventoryOnOff() 
     {
         inventoryScreen.SetActive (!inventoryScreen.activeSelf);
-        Debug.Log("called");
+        playerStatsScreen.SetActive (inventoryScreen.activeSelf);
+        //Debug.Log("called");
     }
 
     private void UpdateUI() 
@@ -40,5 +47,26 @@ public class InventoryUI : MonoBehaviour
                 slots[i].ClearSlot();
             }
         }
+
+        UpdateEquipment();
+    }
+    public void UpdateEquipment()
+    {
+        equipSlots = equipmentSlotParent.GetComponentsInChildren<EquipmentSlotUI>();
+
+        Equipament[] currentEquiped = equipManager.GetCurrentEquiped();
+
+        for (int i = 0; i < currentEquiped.Length; i++)
+        {
+            if (currentEquiped[i] != null)
+            {
+                equipSlots[i].AddItem(currentEquiped[i]);
+            }
+            else 
+            {
+                equipSlots[i].ClearSlot();
+            }
+        }
+
     }
 }

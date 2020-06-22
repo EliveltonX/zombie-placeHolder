@@ -72,7 +72,6 @@ public class EquipmentManager : MonoBehaviour
         }
     }
 
-
     public void UnequipAll() 
     {
         for (int i = 0; i < currentEquiped.Length; i++)
@@ -87,6 +86,12 @@ public class EquipmentManager : MonoBehaviour
         {
             targetMesh.SetBlendShapeWeight((int)blendShape,_weight);
         }
+    }
+
+
+    public Equipament[] GetCurrentEquiped() 
+    {
+        return currentEquiped;
     }
 
 }

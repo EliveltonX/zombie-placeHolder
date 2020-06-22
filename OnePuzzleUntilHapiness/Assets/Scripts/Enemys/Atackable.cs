@@ -2,21 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Atackable : MonoBehaviour
+public class Atackable : Interactable
 {
-   
 
-
-    public void Update()
+    public override void CheckForInteraction()
     {
-       
+       //do nothing;
     }
 
-
-   
-
-    public void OnDrawGizmosSelected()
+    public override void Interact()
     {
-       
+       //do Nothing;
     }
+
 }

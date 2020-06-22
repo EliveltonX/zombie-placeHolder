@@ -24,8 +24,10 @@ public class PlayerMovment : MonoBehaviour
     private NavMeshAgent navMesh;
     private Vector3 ref_camVelocity;            // the current velocity of the camera on smoothDamp;
     private Interactable myFocus;               //what im focusing;
-    private Atackable myTarget = null;
+    //private Atackable myTarget = null;
     private Animator anim;                      // animartor from child player mesh;
+    private float currentSpeed = 0f;            //the current speed by Calculatint by calculateMySpeed();
+    private bool iHaveDestination;              // true if player focusing anithyng;
 
     GameControls controlls;
     private void Awake()
@@ -47,6 +49,8 @@ public class PlayerMovment : MonoBehaviour
     private void Update()
     {
 
+        //Debug.Log("Target = " + myTarget + "\n Focus = " + myFocus);
+
         if (inventoryUI.inventoryScreen.activeSelf) { return; }
 
         #region Camera Controller; // here i made the camera smoothDamp;
@@ -57,28 +61,35 @@ public class PlayerMovment : MonoBehaviour
 
         if (moveDir != Vector2.zero)   // when player use the sticks stop following interactables and go to direction of stick;
         {
-            if (myFocus != null ) 
+            if (myFocus != null)
             {
                 myFocus.ClearFocus();
                 myFocus = null;
-               
+
             }
 
-            if (myTarget != null) 
-            {
-                myTarget = null;
-            }
-
-           
             Vector3 movimento = new Vector3(moveDir.x, rb.velocity.y, moveDir.y) * Time.deltaTime * playerVelocity;
+            transform.rotation = Quaternion.LookRotation(new Vector3(moveDir.x, 0, moveDir.y));
             navMesh.ResetPath();
             navMesh.Move(movimento);
 
             //Debug.Log(moveDir);
         }
+        else 
+        {
+            Debug.Log("My Focus = " + myFocus);
 
-        anim.SetFloat("PlayerVelocity", moveDir.magnitude);
-        graphycsPlayer.rotation = Quaternion.LookRotation(new Vector3(moveDir.x, 0, moveDir.y));
+            if (myFocus != null) 
+            {
+                navMesh.SetDestination(myFocus.transform.position);
+            }
+            FaceTarget();
+        }
+
+
+
+        anim.SetFloat("PlayerVelocity", currentSpeed); 
+        calculateMySpeed();// tirar isso do Update Quebra as Animaçoes!!!
 
     }
 
@@ -86,20 +97,20 @@ public class PlayerMovment : MonoBehaviour
     {
         if (inventoryUI.inventoryScreen.activeSelf) { return; }
 
-        Debug.Log("I press Atack");
+        //Debug.Log("I press Atack");
         Collider[] myTargets = Physics.OverlapSphere(transform.position, findEnemyRadius, enemiesLayer);
 
         if (myTargets.Length > 0)
         {
-            Atackable newTarget = myTargets[0].GetComponent<Atackable>();
-            if (myTarget != newTarget)
+            Interactable newTarget = myTargets[0].GetComponent<Atackable>();
+            if (myFocus != newTarget)
             {
-                if (myTarget != null)
+                if (myFocus != null)
                 {
-                    myTarget = null;
+                    myFocus = null;
                 }
-                myTarget = newTarget;
-                navMesh.SetDestination(myTarget.transform.position);
+                myFocus = newTarget;
+                navMesh.SetDestination(myFocus.transform.position);
             }
             else 
             {
@@ -107,11 +118,11 @@ public class PlayerMovment : MonoBehaviour
             }
 
 
-            Debug.Log("Im atacking :" + myTargets[0].name);
+            //Debug.Log("Im atacking :" + myTargets[0].name);
         }
         else 
         { 
-            Debug.Log("Nenhun inimigo encontrado"); 
+            //Debug.Log("Nenhun inimigo encontrado"); 
         }
     }
 
@@ -143,10 +154,6 @@ public class PlayerMovment : MonoBehaviour
             
         }
 
-        
-       
-
-
     }
 
     private void OnDrawGizmosSelected()
@@ -159,6 +166,29 @@ public class PlayerMovment : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, findEnemyRadius);
     }
 
+
+    private Vector3 lastPos;
+    private void calculateMySpeed() 
+    {
+        currentSpeed = ((transform.position - lastPos)/Time.deltaTime).magnitude;
+        lastPos = transform.position;
+    }
+
+    void FaceTarget()
+    {
+        
+
+        float distance = Vector3.Distance(navMesh.destination , transform.position);
+
+        if (distance <= navMesh.stoppingDistance && distance >0)
+        {
+            Vector3 direction = (navMesh.destination - transform.position).normalized;
+            Quaternion lookRotation = Quaternion.LookRotation(new Vector3(direction.x, 0, direction.z));
+            transform.rotation = Quaternion.Slerp(transform.rotation, lookRotation, Time.deltaTime * 5f);
+        }
+
+        //Debug.Log("Distance" + distance);
+    }
 
     private void OnEnable()
     {

@@ -16,18 +16,20 @@ public class Interactable : MonoBehaviour
     public void Update()
     {
 
+        CheckForInteraction();
+    }
 
-        
-
+    public virtual void CheckForInteraction() 
+    {
         if (imTheFocus && !hasInteracted)
         {
-            
-            if (Vector3.Distance(interactTransform.position, playerTr.position) <= radiusToInteract) 
+
+            if (Vector3.Distance(interactTransform.position, playerTr.position) <= radiusToInteract)
             {
                 Interact();
-     
+
             }
-            
+
         }
     }
 
