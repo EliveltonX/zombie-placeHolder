@@ -1,0 +1,23 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea7117efc3f64f64a9b1c933c22513ee, type: 3}
+  m_Name: HeadCap
+  m_EditorClassIdentifier: 
+  itemName: HeadCap
+  description: "Descri\xE7\xE3o deste item  :)"
+  stackAmount: 1
+  icon: {fileID: 0}
+  slotType: 1
+  mod_health: 10
+  mod_armor: 2
+  mod_attack: 5
+  mesh: {fileID: 3524109286572348294, guid: 684bf8b136f14454d874bf73ae439c10, type: 3}
